@@ -1,0 +1,77 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = 'Header Footer Form'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 1440
+  FormFactor.Height = 900
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  DesignerMasterStyle = 2
+  object Header: TToolBar
+    Size.Width = 384.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object HeaderLabel: TLabel
+      Align = Contents
+      Size.Width = 384.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'toollabel'
+      TextSettings.HorzAlign = Center
+      Text = 'Photo && Location '
+    end
+    object SpeedButton1: TSpeedButton
+      Align = Left
+      Size.Width = 44.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = 'cameratoolbutton'
+      Text = 'SpeedButton1'
+      TextSettings.Trimming = None
+      OnClick = SpeedButton1Click
+    end
+  end
+  object Footer: TToolBar
+    Align = Bottom
+    Position.Y = 523.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'bottomtoolbar'
+    TabOrder = 1
+  end
+  object Layout1: TLayout
+    Align = Client
+    Padding.Left = 8.000000000000000000
+    Padding.Top = 8.000000000000000000
+    Padding.Right = 8.000000000000000000
+    Padding.Bottom = 8.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 479.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    object ListView1: TListView
+      ItemAppearanceClassName = 'TImageListItemBottomDetailAppearance'
+      ItemEditAppearanceClassName = 'TImageListItemBottomDetailShowCheckAppearance'
+      HeaderAppearanceClassName = 'TListHeaderObjects'
+      FooterAppearanceClassName = 'TListHeaderObjects'
+      Align = Client
+      Size.Width = 368.000000000000000000
+      Size.Height = 463.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      ItemAppearance.ItemHeight = 150
+      ItemAppearanceObjects.ItemObjects.Detail.WordWrap = True
+      ItemAppearanceObjects.ItemObjects.Detail.VertAlign = Center
+      ItemAppearanceObjects.ItemObjects.Detail.PlaceOffset.Y = 30.000000000000000000
+      ItemAppearanceObjects.ItemObjects.Accessory.Visible = False
+      ItemAppearanceObjects.ItemObjects.Image.Width = 96.000000000000000000
+      ItemAppearanceObjects.ItemObjects.Image.Height = 96.000000000000000000
+      StyleLookup = 'ListView1Style1'
+    end
+  end
+end
