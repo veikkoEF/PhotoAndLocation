@@ -8,19 +8,22 @@ uses
   FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base,
   FMX.ListView, FMX.Layouts, FMX.Controls.Presentation,
   System.Generics.Collections,
-  uPhoto, FMX.Objects; // <- deine Foto-Klasse
+  uPhoto, FMX.Objects, FMX.MediaLibrary, System.Actions, FMX.ActnList,
+  FMX.StdActns, FMX.MediaLibrary.Actions; // <- deine Foto-Klasse
 
 type
   TMainForm = class(TForm)
     Header: TToolBar;
     Footer: TToolBar;
     HeaderLabel: TLabel;
-    SpeedButton1: TSpeedButton;
     Layout1: TLayout;
     ListView1: TListView;
+    ActionList1: TActionList;
+    SpeedButton1: TSpeedButton;
+    TakePhotoFromCameraAction1: TTakePhotoFromCameraAction;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure TakePhotoFromCameraAction1DidFinishTaking(Image: TBitmap);
   private
     FPhotos: TObjectList<TPhoto>; // owns objects
     procedure CreateSampleData;
@@ -159,25 +162,33 @@ begin
   FPhotos.Free;
 end;
 
-procedure TMainForm.SpeedButton1Click(Sender: TObject);
+
+
+procedure TMainForm.TakePhotoFromCameraAction1DidFinishTaking(Image: TBitmap);
 var
   P: TPhoto;
-  ImgPath: string;
+  TempPath: string;
 begin
-  // Beispiel: per Button einen neuen Datensatz mit Platzhalter hinzufügen
-  ImgPath := GetPlaceholderPath;
+  // temporären Pfad für das Foto wählen
+  TempPath := TPath.Combine(TPath.GetDocumentsPath,
+               Format('photo_%d.png', [FPhotos.Count + 1]));
+  Image.SaveToFile(TempPath);
 
+  // neues Foto-Objekt erzeugen
   P := TPhoto.Create;
   P.Id := FPhotos.Count + 1;
-  P.Path := ImgPath;
-  P.ThumbPath := ImgPath;
+  P.Path := TempPath;
+  P.ThumbPath := TempPath;   // später evtl. eigene Thumbnails generieren
   P.Timestamp := Now;
-  P.Lat := 52.5200; // Berlin
-  P.Lon := 13.4050;
-  P.Accuracy := 8;
-  P.Note := 'Interessanter Ort';
-  FPhotos.Add(P);
 
+  // Dummy-Daten für Standort und Note
+  P.Lat := NaN;
+  P.Lon := NaN;
+  P.Accuracy := NaN;
+  P.Note := 'Noch kein Kommentar';
+
+  // zur Liste hinzufügen und UI aktualisieren
+  FPhotos.Add(P);
   RefreshListView;
 end;
 

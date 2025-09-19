@@ -9,15 +9,16 @@ object MainForm: TMainForm
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  DesignerMasterStyle = 2
+  DesignerMasterStyle = 0
   object Header: TToolBar
     Size.Width = 384.000000000000000000
     Size.Height = 44.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     object HeaderLabel: TLabel
-      Align = Contents
-      Size.Width = 384.000000000000000000
+      Align = Left
+      Position.X = 80.000000000000000000
+      Size.Width = 310.000000000000000000
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'toollabel'
@@ -25,14 +26,14 @@ object MainForm: TMainForm
       Text = 'Photo && Location '
     end
     object SpeedButton1: TSpeedButton
+      Action = TakePhotoFromCameraAction1
       Align = Left
-      Size.Width = 44.000000000000000000
+      ImageIndex = -1
+      Size.Width = 80.000000000000000000
       Size.Height = 44.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = 'cameratoolbutton'
-      Text = 'SpeedButton1'
       TextSettings.Trimming = None
-      OnClick = SpeedButton1Click
     end
   end
   object Footer: TToolBar
@@ -72,6 +73,14 @@ object MainForm: TMainForm
       ItemAppearanceObjects.ItemObjects.Image.Width = 96.000000000000000000
       ItemAppearanceObjects.ItemObjects.Image.Height = 96.000000000000000000
       StyleLookup = 'ListView1Style1'
+    end
+  end
+  object ActionList1: TActionList
+    Left = 80
+    Top = 140
+    object TakePhotoFromCameraAction1: TTakePhotoFromCameraAction
+      Category = 'Medienbibliothek'
+      OnDidFinishTaking = TakePhotoFromCameraAction1DidFinishTaking
     end
   end
 end
